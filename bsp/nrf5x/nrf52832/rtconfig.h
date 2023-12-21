@@ -7,6 +7,7 @@
 /* RT-Thread Kernel */
 
 #define RT_NAME_MAX 8
+#define RT_CPUS_NR 1
 #define RT_ALIGN_SIZE 8
 #define RT_THREAD_PRIORITY_32
 #define RT_THREAD_PRIORITY_MAX 32
@@ -37,18 +38,15 @@
 
 /* Memory Management */
 
-#define RT_USING_MEMPOOL
 #define RT_USING_SMALL_MEM
 #define RT_USING_SMALL_MEM_AS_HEAP
 #define RT_USING_HEAP
-
-/* Kernel Device Object */
-
 #define RT_USING_DEVICE
 #define RT_USING_CONSOLE
 #define RT_CONSOLEBUF_SIZE 128
-#define RT_CONSOLE_DEVICE_NAME "uart0"
-#define RT_VER_NUM 0x50002
+#define RT_CONSOLE_DEVICE_NAME "jlinkRtt"
+#define RT_VER_NUM 0x50100
+#define RT_BACKTRACE_LEVEL_MAX_NR 32
 
 /* RT-Thread Components */
 
@@ -56,20 +54,6 @@
 #define RT_USING_USER_MAIN
 #define RT_MAIN_THREAD_STACK_SIZE 2048
 #define RT_MAIN_THREAD_PRIORITY 10
-#define RT_USING_MSH
-#define RT_USING_FINSH
-#define FINSH_USING_MSH
-#define FINSH_THREAD_NAME "tshell"
-#define FINSH_THREAD_PRIORITY 20
-#define FINSH_THREAD_STACK_SIZE 4096
-#define FINSH_USING_HISTORY
-#define FINSH_HISTORY_LINES 5
-#define FINSH_USING_SYMTAB
-#define FINSH_CMD_SIZE 80
-#define MSH_USING_BUILT_IN_COMMANDS
-#define FINSH_USING_DESCRIPTION
-#define FINSH_ARG_MAX 10
-#define FINSH_USING_OPTION_COMPLETION
 
 /* DFS: device virtual file system */
 
@@ -81,7 +65,9 @@
 #define RT_USING_SERIAL
 #define RT_USING_SERIAL_V1
 #define RT_SERIAL_RB_BUFSZ 64
+#define RT_USING_I2C
 #define RT_USING_PIN
+#define RT_USING_DEV_BUS
 
 /* Using USB */
 
@@ -109,6 +95,9 @@
 /* Network */
 
 
+/* Memory protection */
+
+
 /* Utilities */
 
 
@@ -126,6 +115,15 @@
 
 
 /* Wiced WiFi */
+
+
+/* CYW43012 WiFi */
+
+
+/* BL808 WiFi */
+
+
+/* CYW43439 WiFi */
 
 
 /* IoT Cloud */
@@ -152,6 +150,16 @@
 
 /* tools packages */
 
+#define PKG_USING_SEGGER_RTT
+#define SEGGER_RTT_ENABLE
+#define SEGGER_RTT_MAX_NUM_UP_BUFFERS 3
+#define SEGGER_RTT_MAX_NUM_DOWN_BUFFERS 3
+#define BUFFER_SIZE_UP 1024
+#define BUFFER_SIZE_DOWN 16
+#define SEGGER_RTT_PRINTF_BUFFER_SIZE 64
+#define RTT_DEFAULT_BUFFER_INDEX 0
+#define RTT_DEFAULT_TERMINAL_INDEX 0
+#define PKG_USING_SEGGER_RTT_LATEST_VERSION
 
 /* system packages */
 
@@ -240,6 +248,7 @@
 
 /* Onboard Peripheral Drivers */
 
+#define BSP_USING_I2C_JHM1400
 
 /* On-chip Peripheral Drivers */
 
@@ -252,6 +261,12 @@
 #define NRFX_UART0_ENABLED 1
 #define BSP_UART0_RX_PIN 8
 #define BSP_UART0_TX_PIN 6
+#define BSP_USING_I2C
+#define NRFX_TWIM_ENABLED 1
+#define BSP_USING_I2C0
+#define NRFX_TWIM0_ENABLED 1
+#define BSP_I2C0_SCL_PIN 3
+#define BSP_I2C0_SDA_PIN 4
 
 /* On-chip flash config */
 

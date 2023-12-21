@@ -29,6 +29,12 @@ menu "Onboard Peripheral Drivers"
         select BSP_USING_UART
         select BSP_USING_UART0
         default y
+        
+    config BSP_USING_I2C_JHM1400
+        bool "Enable I2C JHM1400 ADC"
+        select RT_USING_I2C
+        default n
+
 endmenu
 
 menu "On-chip Peripheral Drivers"

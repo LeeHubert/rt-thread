@@ -15,6 +15,7 @@
 #include "board.h"
 #include "drv_uart.h"
 #include <nrfx_clock.h>
+#include "drv_jhm1400.h"
 
 /**
  * This is the timer interrupt service routine.
@@ -84,6 +85,7 @@ void rt_hw_us_delay(rt_uint32_t us)
     }
 }
 
+static struct jhm1400_user_dat user_dat;
 void rt_hw_board_init(void)
 {
     rt_hw_interrupt_enable(0);
@@ -98,12 +100,26 @@ void rt_hw_board_init(void)
 #endif
 
 #ifdef RT_USING_SERIAL
-    rt_hw_uart_init();
+//    rt_hw_uart_init();
 #endif
 
 #if defined(RT_USING_CONSOLE) && defined(RT_USING_DEVICE)
+#if defined(SEGGER_RTT_ENABLE)
+extern int rt_hw_jlink_rtt_init(void);
+    rt_hw_jlink_rtt_init();
+    rt_console_set_device("jlinkRtt");
+#else
     rt_console_set_device(RT_CONSOLE_DEVICE_NAME);
 #endif
+#endif
+    extern int rt_hw_i2c_init(void);
+    rt_hw_i2c_init();
+
+    user_dat.power_pin = 9;
+    user_dat.sensor_pwr = 17;
+    user_dat.i2c_bus = rt_i2c_bus_device_find("i2c0");
+
+    drv_jhm1400_init(&user_dat);
 
 #ifdef RT_USING_COMPONENTS_INIT
     rt_components_board_init();

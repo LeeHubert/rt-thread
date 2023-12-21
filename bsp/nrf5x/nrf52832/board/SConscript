@@ -4,8 +4,12 @@ from building import *
 
 cwd = GetCurrentDir()
 src = Glob('*.c')
-CPPPATH = [cwd]
+CPPPATH = [cwd,
+cwd+'/ports']
 define = ['USE_APP_CONFIG']
+
+if GetDepend(['BSP_USING_I2C_JHM1400']):
+    src += Glob('./ports/drv_jhm1400.c')
 
 group = DefineGroup('Drivers', src, depend = [''], CPPPATH = CPPPATH,CPPDEFINES = define)
 Return('group')
