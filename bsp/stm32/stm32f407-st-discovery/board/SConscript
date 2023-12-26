@@ -15,6 +15,10 @@ CubeMX_Config/Src/stm32f4xx_hal_msp.c
 path =  [cwd]
 path += [cwd + '/CubeMX_Config/Inc']
 
+if GetDepend(['PKG_USING_AT24CXX']):
+    src += ['./drivers/eeprom/at24c02.c']
+    path += [cwd + './drivers/eeprom']
+
 startup_path_prefix = SDK_LIB
 
 if rtconfig.PLATFORM in ['gcc']:

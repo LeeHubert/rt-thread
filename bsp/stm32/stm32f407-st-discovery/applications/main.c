@@ -14,22 +14,44 @@
 #include <drv_gpio.h>
 #ifndef RT_USING_NANO
 #include <rtdevice.h>
+#include <drv_usart.h>
 #endif /* RT_USING_NANO */
 
-/* defined the LED0 pin: PD14 */
-#define LED0_PIN    GET_PIN(D, 14)
+#include "at24c02.h"
 
+rt_uint8_t buffer[24] = {0};
 int main(void)
 {
-    /* set LED0 pin mode to output */
-    rt_pin_mode(LED0_PIN, PIN_MODE_OUTPUT);
+    if (dev_at24c02_init() != RT_EOK)
+    {
+        rt_kprintf("at24c02 init err\n");
+    }
+
+    rt_device_t dev_at24c02 = rt_device_find("at24c02");
+    if (dev_at24c02 == RT_NULL)
+    {
+        rt_kprintf("can't find at24c02\n");
+    }
+
+    if (rt_device_open(dev_at24c02, RT_DEVICE_OFLAG_RDWR) != RT_EOK)
+    {
+        rt_kprintf("at24c02 init err\n");
+    }
+
+    if (rt_device_write(dev_at24c02, 0, "hello2024", 9) != RT_EOK)
+    {
+        rt_kprintf("at24c02 write err\n");
+    }
+
+    if (rt_device_read(dev_at24c02, 0, buffer, 9) != RT_EOK)
+    {
+        rt_kprintf("at24c02 write err\n");
+    }
+
+    rt_kprintf("[at24c02 read buffer]: %s\n", buffer);
 
     while (1)
     {
-        rt_pin_write(LED0_PIN, PIN_HIGH);
-        rt_thread_mdelay(500);
-        rt_pin_write(LED0_PIN, PIN_LOW);
-        rt_thread_mdelay(500);
     }
 
     return RT_EOK;

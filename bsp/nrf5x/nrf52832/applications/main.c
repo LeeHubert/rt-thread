@@ -17,9 +17,20 @@
 static struct rt_thread thread1;
 static char thread1_stack[1024];
 
+static struct jhm1400_user_dat user_dat;
+
 static void thread1_entry(void *param)
 {
     rt_int32_t value;
+
+    user_dat.power_pin = 9;
+    user_dat.sensor_pwr = 17;
+    user_dat.i2c_bus = rt_i2c_bus_device_find("i2c0");
+    if (drv_jhm1400_init(&user_dat) != RT_EOK)
+    {
+        rt_kprintf("jhm1400 init err\n");
+    }
+
     rt_device_t dev = rt_device_find("jhm1400");    
     if (dev == RT_NULL)
     {

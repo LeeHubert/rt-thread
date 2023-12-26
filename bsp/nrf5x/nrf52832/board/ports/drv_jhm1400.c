@@ -12,8 +12,6 @@
 #define JHM1400B_SAMPLE_NUM 10
 #define JHM1400B_CONVERTION_MAX_DELAY 100
 
-
-
 /* JHM1400B 增益 */
 typedef enum
 {
@@ -76,6 +74,7 @@ rt_err_t _jhm1400_open(rt_device_t dev, rt_uint16_t oflag)
     rt_pin_write(jhm1400_power, PIN_LOW);
     rt_pin_mode(sensor_pwr, PIN_MODE_OUTPUT);
     rt_pin_write(sensor_pwr, PIN_HIGH);
+
     return RT_EOK;
 }
 
@@ -86,6 +85,8 @@ rt_err_t _jhm1400_close(rt_device_t dev)
     rt_base_t jhm1400_power = ((struct jhm1400_user_dat *)(dev->user_data))->power_pin;
     rt_pin_write(jhm1400_power, PIN_HIGH);
     rt_pin_mode(jhm1400_power, PIN_MODE_INPUT);
+
+    return RT_EOK;
 }
 
 rt_ssize_t _jhm1400_read(rt_device_t dev, rt_off_t pos, void *buffer, rt_size_t size)
@@ -165,7 +166,10 @@ static rt_err_t _jhm1400_control(rt_device_t dev, int cmd, void *args)
 static struct rt_device dev_jhm1400;
 rt_err_t drv_jhm1400_init(struct jhm1400_user_dat *user_data)
 {
-    RT_ASSERT(user_data != RT_NULL);
+    if (user_data == RT_NULL)
+    {
+        return RT_EINVAL;
+    }
 
     dev_jhm1400.type = RT_Device_Class_Miscellaneous;
     dev_jhm1400.rx_indicate = RT_NULL;

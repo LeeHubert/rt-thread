@@ -112,14 +112,6 @@ extern int rt_hw_jlink_rtt_init(void);
     rt_console_set_device(RT_CONSOLE_DEVICE_NAME);
 #endif
 #endif
-    extern int rt_hw_i2c_init(void);
-    rt_hw_i2c_init();
-
-    user_dat.power_pin = 9;
-    user_dat.sensor_pwr = 17;
-    user_dat.i2c_bus = rt_i2c_bus_device_find("i2c0");
-
-    drv_jhm1400_init(&user_dat);
 
 #ifdef RT_USING_COMPONENTS_INIT
     rt_components_board_init();
