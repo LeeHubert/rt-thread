@@ -14,10 +14,19 @@ CubeMX_Config/Src/stm32f4xx_hal_msp.c
 
 path =  [cwd]
 path += [cwd + '/CubeMX_Config/Inc']
+path += [cwd + '/drivers']
 
 if GetDepend(['PKG_USING_AT24CXX']):
     src += ['./drivers/eeprom/at24c02.c']
     path += [cwd + './drivers/eeprom']
+
+if GetDepend(['BSP_USING_FSMC_LCD']):
+    src += ['./drivers/lcd/lcd.c']
+    path += [cwd + './drivers/lcd']
+
+if GetDepend(['BSP_USING_TOUCHPAD']):
+    src += ['./drivers/lcd/touchpad.c']
+    path += [cwd + './drivers/lcd']
 
 startup_path_prefix = SDK_LIB
 
@@ -28,7 +37,7 @@ elif rtconfig.PLATFORM in ['armcc', 'armclang']:
 elif rtconfig.PLATFORM in ['iccarm']:
     src += [startup_path_prefix + '/STM32F4xx_HAL/CMSIS/Device/ST/STM32F4xx/Source/Templates/iar/startup_stm32f407xx.s']
 
-CPPDEFINES = ['STM32F407xx']
+CPPDEFINES = ['STM32F407xx', 'USE_HAL_DRIVER']
 group = DefineGroup('Drivers', src, depend = [''], CPPPATH = path, CPPDEFINES = CPPDEFINES)
 
 Return('group')

@@ -15,6 +15,8 @@
 #include <rtdevice.h>
 #endif /* RT_USING_NANO */
 
+#include "lcd.h"
+
 /* defined the LED4 pin: PC2 */
 #define LED0_PIN    GET_PIN(F, 6)
 

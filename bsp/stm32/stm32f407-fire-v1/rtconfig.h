@@ -97,7 +97,17 @@
 #define RT_USING_SERIAL_V1
 #define RT_SERIAL_USING_DMA
 #define RT_SERIAL_RB_BUFSZ 64
+#define RT_USING_I2C
+#define RT_USING_I2C_BITOPS
+#define RT_USING_SOFT_I2C
+#define RT_USING_SOFT_I2C1
+#define RT_SOFT_I2C1_SCL_PIN 55
+#define RT_SOFT_I2C1_SDA_PIN 51
+#define RT_SOFT_I2C1_BUS_NAME "i2c1"
+#define RT_SOFT_I2C1_TIMING_DELAY 10
+#define RT_SOFT_I2C1_TIMING_TIMEOUT 10
 #define RT_USING_PIN
+#define RT_USING_LCD
 
 /* Using USB */
 
@@ -174,6 +184,12 @@
 
 /* LVGL: powerful and easy-to-use embedded GUI library */
 
+#define PKG_USING_LVGL
+#define PKG_LVGL_THREAD_PRIO 20
+#define PKG_LVGL_THREAD_STACK_SIZE 4096
+#define PKG_LVGL_DISP_REFR_PERIOD 5
+#define PKG_LVGL_USING_V08020
+#define PKG_LVGL_VER_NUM 0x080200
 
 /* u8g2: a monochrome graphic library */
 
@@ -268,11 +284,20 @@
 
 /* Onboard Peripheral Drivers */
 
+#define BSP_USING_SRAM
+#define BSP_USING_FSMC_LCD
+#define BSP_USING_TOUCHPAD
+
 /* On-chip Peripheral Drivers */
 
 #define BSP_USING_GPIO
 #define BSP_USING_UART
 #define BSP_USING_UART1
+#define BSP_USING_I2C1
+#define BSP_I2C1_SCL_PIN 55
+#define BSP_I2C1_SDA_PIN 51
+#define BSP_USING_EXT_FMC_IO
+#define BSP_USING_FMC
 
 /* Board extended module Drivers */
 

@@ -2,6 +2,22 @@ menu "Hardware Drivers Config"
 
 menu "Onboard Peripheral Drivers"
 
+    config BSP_USING_SRAM
+        bool "Enable SRAM"
+        select BSP_USING_EXT_FMC_IO
+        select BSP_USING_FMC
+        default n
+
+    config BSP_USING_FSMC_LCD
+        bool "Enable LCD"
+        depends on RT_USING_LCD && BSP_USING_SRAM
+        default n
+
+    config BSP_USING_TOUCHPAD
+        bool "Enable Touch Panel"
+        select BSP_USING_I2C1
+        default n
+
 endmenu
 
 menu "On-chip Peripheral Drivers"
@@ -36,12 +52,21 @@ menu "On-chip Peripheral Drivers"
             config BSP_I2C1_SCL_PIN
                 int "i2c1 scl pin number"
                 range 1 216
-                default 24
+                default 55
             config BSP_I2C1_SDA_PIN
                 int "I2C1 sda pin number"
                 range 1 216
-                default 25
+                default 51
         endif
+
+    config BSP_USING_EXT_FMC_IO
+        bool
+        default n
+
+    config BSP_USING_FMC
+        bool
+        default n
+
     source "$BSP_DIR/../libraries/HAL_Drivers/drivers/Kconfig"
 
 endmenu
